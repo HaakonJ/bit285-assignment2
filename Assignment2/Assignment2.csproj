@@ -130,10 +130,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\VisitorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Password.cs" />
     <Compile Include="Models\Program.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VisitorLogContext.cs" />
@@ -175,6 +177,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Visitor\Login.cshtml" />
+    <Content Include="Views\Visitor\NewAccount.cshtml" />
+    <Content Include="Views\Visitor\Password.cshtml" />
+    <Content Include="Views\Visitor\PasswordGenerator.cshtml" />
+    <Content Include="Views\Visitor\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

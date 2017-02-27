@@ -1,5 +1,7 @@
 namespace Assignment2.Models
 {
+    using System.Web;
+    using System.Collections.Generic;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -18,6 +20,7 @@ namespace Assignment2.Models
         public virtual DbSet<User> Users { get; set; } 
         public virtual DbSet<Program> Programs { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
+        public virtual DbSet<Password> Password { get; set; }
     }
 
 }
