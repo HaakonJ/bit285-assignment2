@@ -182,6 +182,7 @@
     <Content Include="Views\Visitor\Password.cshtml" />
     <Content Include="Views\Visitor\PasswordGenerator.cshtml" />
     <Content Include="Views\Visitor\Welcome.cshtml" />
+    <Content Include="Views\Visitor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

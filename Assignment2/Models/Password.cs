@@ -17,7 +17,7 @@ namespace Assignment2.Models
 
         [Required]
         [Display(Name = "Birth Year")]
-        public DateTime BirthYear { get; set; }
+        public string BirthYear { get; set; }
 
         [Required]
         [Display(Name = "Favorite Color")]
