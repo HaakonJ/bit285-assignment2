@@ -30,8 +30,9 @@ namespace Assignment2.Controllers
             db.Users.Add(User);
             ViewBag.user = User.Email;
             ViewBag.user = User.Password;
+            ViewBag.Name = User.FirstName;
             db.SaveChanges();
-            return View("Index");
+            return View("Index", db.Users);
         }
 
         [HttpGet]
@@ -41,14 +42,15 @@ namespace Assignment2.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewAccount(User NUser)
+        public ActionResult NewAccount(User NUser, Program Prog)
         {
-            //db.Users.Add(NUser);
-            //ViewBag.user = NUser.FirstName;
-            //ViewBag.user = NUser.LastName;
-            //ViewBag.user = NUser.Email;
-           // db.SaveChanges();
-            return View("Password");
+            db.Users.Add(NUser);
+            db.Programs.Add(Prog);
+            ViewBag.user = NUser.FirstName;
+            ViewBag.user = NUser.LastName;
+            ViewBag.user = NUser.Email;
+            db.SaveChanges();
+            return View("Password", db.Users);
         }
 
         [HttpGet]
@@ -58,12 +60,12 @@ namespace Assignment2.Controllers
         }
 
         [HttpPost]
-        public ActionResult Password(Password P)
+        public ActionResult Password(Password P, User U)
         {
-            //db.Users.Add(UserP);
-            //ViewBag.User = UserP.Password;
-            ////db.SaveChanges();
-            return View("PasswordGenerator");
+            db.Password.Add(P);
+            ViewBag.User = U.Password;
+            db.SaveChanges();
+            return View("PasswordGenerator", db.Password);
         }
 
         [HttpGet]
@@ -136,8 +138,8 @@ namespace Assignment2.Controllers
             ViewBag.Password5 = password5;
             //db.Users.Add(UserP);
             //ViewBag.User = UserP.Password;
-            ////db.SaveChanges();
-            return View("Login");
+            //db.SaveChanges();
+            return View("Login", db.Users);
         }
     }
 }

@@ -13,18 +13,18 @@ namespace Assignment2.Models
         public int UserID { get; set; }
 
         [Display(Name = "Email Address")]
-        [EmailAddress(ErrorMessage ="Invalid email address")]
-        [Required] 
+        //[EmailAddress(ErrorMessage ="Invalid email address")]
+        //[Required] 
         public string Email { get; set; }
 
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
