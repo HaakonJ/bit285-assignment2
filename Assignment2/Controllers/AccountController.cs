@@ -28,9 +28,11 @@ namespace Assignment2.Controllers
             [HttpPost]
             public ActionResult Login(LoginViewModel Temp)
             {
-                
+            
                 ViewBag.ETemp = Temp.Email;
                 ViewBag.PTemp = Temp.Password;
+            
+
                 //db.SaveChanges();
                 return View("Welcome");
             }
@@ -51,8 +53,22 @@ namespace Assignment2.Controllers
                 ViewBag.Email = NUser.Email;
                 ViewBag.Program = NUser.Program;
                 ViewBag.EmailUp = NUser.EmailUpdates;
+
+            User U = GetTempUser();
+            U.FirstName = NUser.FirstName;
+            U.LastName = NUser.LastName;
+            U.Email = NUser.Email;
+
+            Program Pro = new Program();
+            Pro.ProgramID = U.ProgramID;
+            Pro.ProgramName = NUser.Program;
+
+            Activity Act = new Activity();
+            Act.ActivityDate = DateTime.Now;
+            
+
             //db.SaveChanges();
-            return View("Password", db.Users);
+            return View("Password");
             }
 
             [HttpGet]
@@ -141,9 +157,9 @@ namespace Assignment2.Controllers
             }
 
             [HttpPost]
-            public ActionResult PasswordGenerator(PasswordViewModel P)
+            public ActionResult PasswordGenerator(PasswordGeneratorViewModel P)
             {
-                
+                ViewBag.Choosen = P.Password;
                 //db.Users.Add(UserP);
                 //ViewBag.User = UserP.Password;
                 //db.SaveChanges();
