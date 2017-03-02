@@ -4,12 +4,10 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace Assignment2.Models
+namespace Assignment2.ViewModels
 {
-    public class Password
+    public class PasswordViewModel
     {
-        [Key]
-        public int PasswordID { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]

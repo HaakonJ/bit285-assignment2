@@ -1,5 +1,5 @@
 ﻿
-@model Assignment2.Models.User
+@model Assignment2.ViewModels.LoginViewModel
 @{
     ViewBag.Title = "Login";
 }
@@ -42,7 +42,11 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<div>
+    @Html.ActionLink("Make New Account", "NewAccount")
+</div>
 
 @section Scripts {
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -14,7 +14,7 @@ namespace Assignment2.Models
 
         [Display(Name = "Email Address")]
         //[EmailAddress(ErrorMessage ="Invalid email address")]
-        //[Required] 
+        //[Required]
         public string Email { get; set; }
 
         [DataType(DataType.Password)]
