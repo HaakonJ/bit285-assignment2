@@ -1,5 +1,6 @@
 ﻿@model Assignment2.ViewModels.NewAccountViewModel
 @{
+
     ViewBag.Title = "NewAccount";
 }
 
@@ -38,11 +39,31 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Program, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Program, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Program, "", new { @class = "text-danger" })
-            </div>
+            @Html.LabelFor(model => model.ProgramOp, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @*@Html.EditorFor(model => model.ProgramOp, new { htmlAttributes = new { @class = "form-control" } })*@
+            @{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Application",
+                    Value = "Application"
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Programming",
+                    Value = "Programming",
+                    //Selected = true
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Web",
+                    Value = "Web"
+                });
+            }
+
+            @Html.DropDownListFor(model => model.ProgramOp, listItems, "-- Select Status --", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProgramOp, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
@@ -55,9 +76,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Make Password" class="btn btn-default" />
+                <input type="submit" value="Make Password" name="Create" class="btn btn-default" />
+                <input type="submit" value="reset" name="reset" class="btn btn-default" />
             </div>
         </div>
+
+
 
     </div>
 }

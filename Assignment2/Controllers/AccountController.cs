@@ -14,78 +14,128 @@ namespace Assignment2.Controllers
             // GET: Visitor
 
             [HttpGet]
-            public ActionResult Index()
-            {
-                return View(db.Users);
-            }
-
-            [HttpGet]
             public ActionResult Login()
             {
                 return View();
             }
 
             [HttpPost]
-            public ActionResult Login(LoginViewModel Temp)
+            public ActionResult Login(LoginViewModel user)
             {
             
-                ViewBag.ETemp = Temp.Email;
-                ViewBag.PTemp = Temp.Password;
-            
+                //ViewBag.ETemp = Temp.Email;
+                //ViewBag.PTemp = Temp.Password;
 
+            if (isUser(user.UserName))
+            {
+                Activity newActivity = new Activity();
+                newActivity.ActivityDate = DateTime.Now;
+                newActivity.ActivityName = user.UserName;
+                newActivity.IpAddress = Request.UserHostAddress;
+
+                db.Activities.Add(newActivity);
                 //db.SaveChanges();
-                return View("Welcome");
+
+                return View(".../HomeController/Index", db.Activities);
+            }
+            else
+            {
+                ModelState.Clear();
+                ModelState.AddModelError("ErrorMessage", "THIS IS NOT A VALID ACCOUNT. PLEASE TRY AGAIN!");
+
+                return View("Login");
+            }
+
+            //db.SaveChanges();
+            //return View("Welcome");
             }
 
             [HttpGet]
             public ActionResult NewAccount()
             {
-                return View();
+            var model = new NewAccountViewModel();
+            IQueryable<Program> rtn = db.Programs;
+            //model.ProgramOp = rtn;
+            return View("NewAccount");
             }
 
             [HttpPost]
-            public ActionResult NewAccount(NewAccountViewModel NUser)
+            public ActionResult NewAccount(NewAccountViewModel NUser, string create, string reset)
             {
-                //db.Users.Add(NUser);
-                //db.Programs.Add(Prog);
-                ViewBag.First = NUser.FirstName;
-                ViewBag.Last = NUser.LastName;
-                ViewBag.Email = NUser.Email;
-                ViewBag.Program = NUser.Program;
-                ViewBag.EmailUp = NUser.EmailUpdates;
 
-            User U = GetTempUser();
-            U.FirstName = NUser.FirstName;
-            U.LastName = NUser.LastName;
-            U.Email = NUser.Email;
 
-            Program Pro = new Program();
-            Pro.ProgramID = U.ProgramID;
-            Pro.ProgramName = NUser.Program;
+            ViewBag.Last = NUser.LastName;
+            if (!string.IsNullOrEmpty(create))
 
-            Activity Act = new Activity();
-            Act.ActivityDate = DateTime.Now;
-            
+            {
+                if (!isUser(NUser.FirstName))
+                {
+                    User newUser = new User();
 
-            //db.SaveChanges();
-            return View("Password");
+                    newUser.FirstName = NUser.FirstName;
+                    newUser.LastName = NUser.LastName;
+                    newUser.Email = NUser.Email;
+                    newUser.EmailUpdates = NUser.EmailUpdates;
+                    //newUser.ProgramID = NUser.Program.ProgramID;
+                    Session["tempUser"] = newUser;
+                    return Redirect("Password");
+                }
+                else
+                {
+                    return View("NewAccount");
+                }
             }
+            else if(!string.IsNullOrEmpty(reset))
+            {
+                ModelState.Clear();
+                return View("NewAccount");
+            }
+            else
+            {
+                return View("NewAccount");
+            }
+            //db.Users.Add(NUser);
+            //db.Programs.Add(Prog);
+            //    ViewBag.First = NUser.FirstName;
+            //    ViewBag.Last = NUser.LastName;
+            //    ViewBag.Email = NUser.Email;
+            //    ViewBag.Program = NUser.Program;
+            //    ViewBag.EmailUp = NUser.EmailUpdates;
+
+
+
+            //GetTempUser().FirstName = NUser.FirstName;
+            //GetTempUser().LastName = NUser.LastName;
+            //GetTempUser().Email = NUser.Email;
+
+            //Program Pro = new Program();
+            //Pro.ProgramID = GetTempUser().ProgramID;
+
+            //Activity Act = new Activity();
+            //Act.ActivityDate = DateTime.Now;
+
+
+            //ViewBag.FN = GetTempUser().FirstName;
+
+            ////db.SaveChanges();
+            //return View("Password");
+        }
 
             [HttpGet]
             public ActionResult Password()
             {
-                return View();
+                return View("Password");
             }
 
             [HttpPost]
             public ActionResult Password(PasswordViewModel P)
             {
-               
-                ViewBag.LN = P.LastName;
+            P.LastName = GetTempUser().LastName;
+
+            ViewBag.LN = P.LastName;
                 ViewBag.BY = P.BirthYear;
                 ViewBag.FC = P.Color;
-                // db.SaveChanges();
-                
+            // db.SaveChanges();
 
             string Name = ViewBag.LN;
             string Year = ViewBag.BY;
@@ -147,13 +197,15 @@ namespace Assignment2.Controllers
             ViewBag.Password4 = password4;
             ViewBag.Password5 = password5;
 
-            return View("PasswordGenerator");
+
+            return Redirect("PasswordGenerator");
+            //return View("PasswordGenerator");
         }
 
             [HttpGet]
             public ActionResult PasswordGenerator()
             {
-                return View();
+                return View("PasswordGenerator");
             }
 
             [HttpPost]
@@ -166,11 +218,16 @@ namespace Assignment2.Controllers
                 return View("Login");
             }
 
+            private bool isUser(string user)
+            {
+                return db.Users.ToList().Any(m => m.Email == user);
+            }
 
-            /**
-             * Store temporary user in Session during account creation
-             */
-            private User GetTempUser()
+
+        /**
+         * Store temporary user in Session during account creation
+         */
+        private User GetTempUser()
             {
                 if (Session["tempUser"] == null)
                 {

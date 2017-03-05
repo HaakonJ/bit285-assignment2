@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using Assignment2.Models;
+using System.Web.Mvc;
 
 namespace Assignment2.ViewModels
 {
@@ -20,9 +22,11 @@ namespace Assignment2.ViewModels
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [Display(Name = "Program")]
-        public string Program { get; set; }
+        public Program Program;
+
+        //[Required]
+        [Display(Name = "Program Options")]
+        public string ProgramOp { get; set; }
 
         [Display(Name = "Email me program updates")]
         public bool EmailUpdates { get; set; }
