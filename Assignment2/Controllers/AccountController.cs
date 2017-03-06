@@ -36,7 +36,7 @@ namespace Assignment2.Controllers
                 db.Activities.Add(newActivity);
                 //db.SaveChanges();
 
-                return View(".../HomeController/Index", db.Activities);
+                return View("Index", db.Activities);
             }
             else
             {
@@ -130,9 +130,7 @@ namespace Assignment2.Controllers
             [HttpPost]
             public ActionResult Password(PasswordViewModel P)
             {
-            P.LastName = GetTempUser().LastName;
-
-            ViewBag.LN = P.LastName;
+                ViewBag.LN = P.LastName;
                 ViewBag.BY = P.BirthYear;
                 ViewBag.FC = P.Color;
             // db.SaveChanges();
@@ -198,7 +196,7 @@ namespace Assignment2.Controllers
             ViewBag.Password5 = password5;
 
 
-            return Redirect("PasswordGenerator");
+            return View("PasswordGenerator");
             //return View("PasswordGenerator");
         }
 
@@ -212,6 +210,7 @@ namespace Assignment2.Controllers
             public ActionResult PasswordGenerator(PasswordGeneratorViewModel P)
             {
                 ViewBag.Choosen = P.Password;
+            GetTempUser().Password = P.Password;
                 //db.Users.Add(UserP);
                 //ViewBag.User = UserP.Password;
                 //db.SaveChanges();

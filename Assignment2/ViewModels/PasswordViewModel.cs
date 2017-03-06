@@ -20,5 +20,8 @@ namespace Assignment2.ViewModels
         [Required]
         [Display(Name = "Favorite Color")]
         public string Color { get; set; }
+
+        [Display(Name = "Passwords")]
+        public string Passwords { get; set; }
     }
 }

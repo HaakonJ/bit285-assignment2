@@ -13,12 +13,12 @@ namespace Assignment2.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201703040738220_Visitor"; }
+            get { return "201703060123427_Visitor"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target
